@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Kitchen</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #6161a7;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .hlp_bt {
+            position: fixed;
+            top: 6px;
+            right: 4px;
+            background-color: white;
+            font-size: 13px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: blue;
+            border: 3px solid lightgrey;
+            transition: all 0.2s;
+        }
+
+        .hlp_bt:hover {
+            background-color: rgb(152, 211, 211);
+            font-size: 17px;
+            padding: 15px 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+
+        }
+
+        .all {
+            display: grid;
+            grid-template-columns: repeat(3 1fr);
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .box {
+            background-color: rgb(193, 226, 236);
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 30px 20px;
+            text-align: center;
+            font-weight: bold;
+            color: #444;
+            font-size: 18px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            cursor: alias;
+        }
+
+        .box:hover {
+            border-color: #a0a0a0;
+            background-color: #fafafa;
+        }
+
+
+
+        .info {
+            height: fit-content;
+            width: 27px;
+            background-color: red;
+            position: absolute;
+            top: -7px;
+            right: -7px;
+            border-radius: 50%;
+
+        }
+
+        .stat_banner {
+            display: flex;
+            justify-content: space-between;
+            margin: 0 auto 30px auto;
+            gap: 20px;
+            text-align: center;
+        }
+
+        .stat_badge {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 10px 15px;
+            text-align: center;
+            flex: 1;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+            display: inline-block;
+            width: 40%;
+            cursor: pointer;
+        }
+
+        .stat_badge:hover {
+            background-color: rgb(214, 209, 209);
+        }
+
+        .stat_number {
+            display: block;
+            font-size: 20px;
+            font-weight: bold;
+            color: #1e293b;
+        }
+
+        .stat_label {
+            font-size: 11px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 850px) {
+            .all {
+                max-width: 300px;
+            }
+        }
+
+
+        @media (min-width: 1200px) {
+            .all {
+                max-width: 900px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <bitton class="hlp_bt">Help</bitton>
+    <h1>Makondo Kitchen Manager</h1>
+    </div>
+    <div class="stats_banner">
+        <div class="stat_badge total">
+            <span class="stat_number">12</span>
+            <span class="stat_label">In Stock</span>
+        </div>
+        <div class="stat_badge expiring">
+            <span class="stat_number">2</span>
+            <span class="stat_label">Expiring</span>
+        </div>
+        <div class="stat_badge shopping">
+            <span class="stat_number">7</span>
+            <span class="stat_label">To buy</span>
+        </div>
+        <div class="stat_badge account">
+            <span class="stat_number">Account</span>
+            <span class="stat_label">Sign in/ Sign up</span>
+        </div>
+    </div>
+    <div class="all">
+        <div class="cook box">
+            Make a Dish
+            <div class="extra">What do you have in mind</div>
+        </div>
+        <div class="bake box">
+            Bake sth
+            <div class="extra">Try something special</div>
+        </div>
+        <div class="add box">
+            Add Recipe
+            <div class="extra">Share your Recipe</div>
+        </div>
+        <div class="stock box">
+            Stock
+            <div class="extra">Restock your Kitchen</div>
+        </div>
+        <div class="find box">
+            Find Ingredients
+            <div class="extra">Find missing Ingredients</div>
+        </div>
+        <div class="explore box">
+            Explore Recipes
+            <div class="extra">Explore our special recipes</div>
+        </div>
+        <div class="help box">
+            Help
+            <div class="extra">What do you need</div>
+        </div>
+        <div class="msg box">
+            Notificaion
+            <div class="extra">Updates, messages and infos</div>
+        </div>
+        <div class="history box">
+            History
+            <div class="extra">Monitor your diet</div>
+        </div>
+        <div class="suggestion box">
+            Chef's Suggestion
+            <div class="extra">What do you have in stock</div>
+        </div>
+    </div>
+</body>
+
+</html>
