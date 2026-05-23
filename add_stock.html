@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Restock your kitchen</title>
+    <style>
+        body {
+            background-color: rgba(226, 195, 195, 0.671);
+            padding: 0 0 300px 10px;
+        }
+
+
+        .back_bt_link {
+            display: inline-block;
+        }
+
+        .back_bt {
+            padding: 10px 30px;
+            background-color: #333;
+            color: white;
+            text-decoration: underline;
+            border-radius: 10px;
+        }
+
+        input {
+            display: block;
+            margin: 10px;
+            height: 35px;
+            font-size: 15px;
+            width: 300px;
+            border-width: 1px;
+            border-radius: 15px;
+            padding: 2px 6px;
+            text-transform: capitalize;
+        }
+
+        .save_bt {
+            background-color: rgb(32, 156, 32);
+            color: white;
+            padding: 7px 15px;
+            font-size: 1rem;
+        }
+
+        .question {
+            font-size: 1.3rem;
+            margin-bottom: 0;
+        }
+
+        .box {
+            max-width: 650px;
+            border: 1px solid rgb(132, 132, 189);
+            margin-bottom: 20px;
+            padding-left: 10px;
+            border-radius: 20px;
+        }
+
+        .optional {
+            font-size: 15px;
+            color: rgb(148, 101, 101);
+            margin-left: 10px;
+            font-weight: 300;
+        }
+    </style>
+</head>
+
+<body>
+    <a class="back_bt_link" href="kitchenpage.html">
+        <button class="back_bt">Back</button>
+    </a>
+    <h1>Restock your Kitchen</h1>
+
+    <p>Did you recently go shopping? Restock your kitchen for your conveniency</p>
+    <p>Save their location and we can help you find them when you need them</p>
+    <p>Save their expiration date and we will send alert you days before expiration</p>
+    <p>Here we go. Store item in the boxes below</p>
+    <div class="name box">
+        <p class="question">What is the name of the item?</p>
+        <input class="item_name" placeholder="eg eggs, rice, okro, milk">
+    </div>
+    <div class="category box">
+        <p class="question">What category is the item?<span class="optional">~optional</span></p>
+        <input class="item_category" placeholder="eg dairy, grains etc">
+    </div>
+    <div class="qty box">
+        <p class="question">What is th amount of the item?</p>
+        <input class="item_qty" placeholder="eg 5kg, 5pcs, 5liters" type="number">
+    </div>
+    <div class="expiry box">
+        <p class="question">In how long will the item expire?</p>
+        <input class="item_expiry" placeholder="eg 5days, 30days, 365days" type="number">
+    </div>
+    <div class="a box">
+        <p class="question">Where is the item</p>
+        <input class="where_a" placeholder="eg kitchen, store, refrigerator">
+    </div>
+    <div class="b box">
+        <p class="question">Position of the item<span class="optional"> ~optional</span></p>
+        <input class="where_b" placeholder="eg on the table, in the cabinet">
+    </div>
+    <div class="c box">
+        <p class="question">Container Description<span class="optional"> ~optional</span></p>
+        <input class="where_c" placeholder="eg in a round blue container">
+    </div>
+
+
+
+
+    <button class="save_bt">Save</button>
+</body>
+
+</html>

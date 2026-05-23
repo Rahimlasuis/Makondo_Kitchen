@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pantry Stock</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f4f9;
+            padding: 8px 6px
+        }
+
+        .back_bt_link {
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .back_bt {
+            padding: 10px 30px;
+            background-color: #333;
+            color: white;
+            text-decoration: underline;
+            border-radius: 10px;
+        }
+
+        .item_container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 0 10px;
+        }
+
+        .item {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2)
+        }
+
+        .item_details {
+            text-align: left
+        }
+
+        .item_name {
+            display: block;
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e293b;
+        }
+
+        .item_category {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .item_status {
+            text-align: right;
+        }
+
+        .item_qty {
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 4px;
+        }
+
+        .item_expiry.safe {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        .item_expiry.alert {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .item_expiry.expired {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        .item_expiry {
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+
+
+<body>
+    <a class="back_bt_link" href="Kitchenpage.html">
+        <button class="back_bt">Back</button>
+    </a>
+    <h1>My Pantry Stock</h1>
+    <p>This is where all your ingredients and Kitchen Items will appear soon!</p>
+    <div class="item_container">
+        <div class="item">
+            <div class="item_details">
+                <span class="item_name">Eggs</span>
+                <span class="item_category">Dairy</span>
+            </div>
+            <div class="item_status">
+                <span class="item_qty">10 Pieces</span>
+                <span class="item_expiry expired"><span class="item_exp_nu">14</span> days left</span>
+            </div>
+        </div>
+        <div class="item">
+            <div class="item_details">
+                <span class="item_name">Seasoning</span>
+                <span class="item_category">Additive</span>
+            </div>
+            <div class="status">
+                <span class="item_qty">60 Pieces</span>
+                <span class="item_expiry alert"><span class="item_exp_nu">100</span> days left</span>
+            </div>
+        </div>
+        <div class="item">
+            <div class="item_details">
+                <span class="item_name">Rice</span>
+                <span class="item_category">Grains</span>
+            </div>
+            <div class="item_status">
+                <span class="item_qty">20 kg</span>
+                <span class="item_expiry safe"><span class="item_exp_nu">365</span> days left</span>
+            </div>
+        </div>
+        <div class="item">
+            <div class="item_details">
+                <span class="item_name">Oil</span>
+                <span class="item_category">----</span>
+            </div>
+            <div class="item_status">
+                <span class="item_qty">5 litres</span>
+                <span class="item_expiry safe"><span class="item_expiry_nu">206</span> days left</span>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
