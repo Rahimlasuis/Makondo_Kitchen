@@ -139,6 +139,30 @@
             </div>
         </div>
     </div>
+    <script>
+        const container = document.querySelector('.item_container');
+        const pantry = JSON.parse(localStorage.getItem('macondoPantry')) || [];
+
+        if (pantry.length === 0) {
+            container.innerHTML = '<p style="text-align:center;color:#888;">Your pantry is empty. Do and add available items!</p>';
+        } else {
+            container.innerHTML = '';
+            pantry.forEach(item => {
+                const itemHTML = `
+                <div class="item">
+                    <div class="item_details">
+                        <span class="item_name">${item.name}</span>
+                        <span class="item_category">${item.category || '---'}</span>
+                    </div>
+                    <div class="item_status">
+                        <span class="item_qty"><span class="item_qty_nu">${item.amount || '---'}</span>pieces/kg/litres left</span>
+                        <span class="item_expiry safe"><span class="item_exp_nu">${item.expiry || '---'}</span> days left</span>
+                    </div>
+                </div>
+            `; container.innerHTML += itemHTML;
+            });
+        }
+    </script>
 </body>
 
 </html>

@@ -75,19 +75,19 @@
     <p>Here we go. Store item in the boxes below</p>
     <div class="name box">
         <p class="question">What is the name of the item?</p>
-        <input class="item_name" placeholder="eg eggs, rice, okro, milk">
+        <input class="item_name" id="item_name" placeholder="eg eggs, rice, okro, milk">
     </div>
     <div class="category box">
         <p class="question">What category is the item?<span class="optional">~optional</span></p>
-        <input class="item_category" placeholder="eg dairy, grains etc">
+        <input class="item_category" id="item_category" placeholder="eg dairy, grains etc">
     </div>
     <div class="qty box">
         <p class="question">What is th amount of the item?</p>
-        <input class="item_qty" placeholder="eg 5kg, 5pcs, 5liters" type="number">
+        <input class="item_qty" id="item_qty" placeholder="eg 5kg, 5pcs, 5liters" type="number">
     </div>
     <div class="expiry box">
         <p class="question">In how long will the item expire?</p>
-        <input class="item_expiry" placeholder="eg 5days, 30days, 365days" type="number">
+        <input class="item_expiry" id="item_expiry" placeholder="eg 5days, 30days, 365days" type="number">
     </div>
     <div class="a box">
         <p class="question">Where is the item</p>
@@ -102,10 +102,29 @@
         <input class="where_c" placeholder="eg in a round blue container">
     </div>
 
+    <button class="save_bt" type="button">Save</button>
+    <script>
+        const addButton = document.querySelector('.save_bt');
 
+        addButton.addEventListener('click', () => {
+            const name = document.getElementById('item_name').value;
+            const category = document.getElementById('item_category').value;
+            const amount = document.getElementById('item_qty').value;
+            const expiry = document.getElementById('item_expiry').value;
 
+            if (!name) {
+                alert('Please fill in at least the name');
+                return;
+            }
 
-    <button class="save_bt">Save</button>
+            const new_item = { name, category, amount, expiry }
+
+            let pantry = JSON.parse(localStorage.getItem('macondoPantry')) || [];
+            pantry.push(new_item);
+            localStorage.setItem('macondoPantry', JSON.stringify(pantry));
+            window.location.href = 'stock.html';
+        });
+    </script>
 </body>
 
 </html>
