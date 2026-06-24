@@ -30,7 +30,7 @@
         }
 
         .item {
-            background-color: white;
+            background-color: #ffffff;
             border: 1px solid #e2e8f0;
             border-radius: 12px;
             padding: 15px 20px;
@@ -42,7 +42,25 @@
         }
 
         .item_details {
-            text-align: left
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            gap: 4px;
+        }
+
+        .item_details button {
+            background-color: #fff;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            color: #64748b;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .item_details button:hover {
+            background-color: #fee2e2;
+            color: #ef4444;
+            border-color: #fca5a5;
         }
 
         .item_name {
@@ -50,6 +68,7 @@
             font-size: 18px;
             font-weight: bold;
             color: #1e293b;
+            text-transform: capitalize;
         }
 
         .item_category {
@@ -58,7 +77,10 @@
         }
 
         .item_status {
+            display: flex;
+            flex-direction: column;
             text-align: right;
+            gap: 4px;
         }
 
         .item_qty {
@@ -85,7 +107,52 @@
         }
 
         .item_expiry {
+            font-size: 11px;
+            font-weight: bold;
             padding: 5px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .clear_bt_div {
+            max-width: 600px;
+            margin: 0 auto 15px auto;
+            text-align: right;
+            padding: 8px 16px;
+        }
+
+        .clear_bt {
+            background-color: #4f4444;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 11px;
+            height: 35px;
+        }
+
+        .re_add {
+            background-color: rgb(210, 210, 245);
+            font-size: 20px;
+            padding: 5px 10px;
+            border: 2px solid rgb(159, 204, 159);
+            align-items: center;
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        .re_add:hover {
+            padding: 10px 20px;
+            border: 3px solid green;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
         }
     </style>
 </head>
@@ -96,9 +163,14 @@
         <button class="back_bt">Back</button>
     </a>
     <h1>My Pantry Stock</h1>
-    <p>This is where all your ingredients and Kitchen Items will appear soon!</p>
+    <p>This is where all your ingredients and Kitchen Items will appear</p>
+    <div class="clear_bt_div">
+        <button id="clear_all" class="clear_bt">
+            Clear Entire Pantry
+        </button>
+    </div>
     <div class="item_container">
-        <div class="item">
+        <!--<div class="item">
             <div class="item_details">
                 <span class="item_name">Eggs</span>
                 <span class="item_category">Dairy</span>
@@ -113,7 +185,7 @@
                 <span class="item_name">Seasoning</span>
                 <span class="item_category">Additive</span>
             </div>
-            <div class="status">
+            <div class="item_status">
                 <span class="item_qty">60 Pieces</span>
                 <span class="item_expiry alert"><span class="item_exp_nu">100</span> days left</span>
             </div>
@@ -137,32 +209,116 @@
                 <span class="item_qty">5 litres</span>
                 <span class="item_expiry safe"><span class="item_expiry_nu">206</span> days left</span>
             </div>
-        </div>
+        </div>-->
     </div>
     <script>
+        /*const container = document.querySelector('.item_container');
+        const clearAllBtn = document = document.getElementById('clearPantryBtn');
+
+        function renderpantry() {
+            const pantry = JSON.parse(localStorage.getItem('macondoPantry')) || [];
+
+            if (pantry.length === 0) {
+                container.innerHTML = '<p>Your Pantry Cart is empty. Click Restock to add items</p>';
+                if (clearAllBtn) clearAllBtn.style.display = 'none';
+                return;
+            }
+
+            if (clearAllBtn) clearAllBtn.style.display = 'inline-block';
+
+            container.innerHTML = '';
+
+            pantry.forEach((item, i) => {
+                const itemHtml = `
+                    <div class="item_container">
+                        <div class="item_details">
+                            <span class="item_name">${item.name}</span>
+                            <span class="item_category">${item.category}</span>
+                        </div>
+                        <div class="item_status">
+                            <span class="item_qty">${item.amount}</span>
+                            <span class="item_expiry">${item.expiry} || 'No Expiry'</span>
+                        </div>
+                        <button onclick="deleteItem(${i})">CLR</button>
+                    </div>
+            `;
+                container.innerHTML += itemHtml;
+            });
+        }
+
+        window.deleteSingleItem = function (index) {
+            let pantry = JSON.parse(localStorage.getItem("macondoPantry")) || [];
+
+
+            pantry.splice(index, 1);
+
+            localStorage.setItem('macondoPantry', JSON.stringify(pantry));
+
+            renderpantry();
+        };
+
+        if clearAllBtn.onclick = function () {
+            if (confirm('Are you sure you want to clear your entire Pantry?')) {
+                localStorage.removeItem('macondoPantry');
+                renderpantry();
+            }
+        };
+
+        renderpantry(); */
+
         const container = document.querySelector('.item_container');
+        const clearAllBtn = document.getElementById('clear_all');
         const pantry = JSON.parse(localStorage.getItem('macondoPantry')) || [];
 
         if (pantry.length === 0) {
-            container.innerHTML = '<p style="text-align:center;color:#888;">Your pantry is empty. Do and add available items!</p>';
-        } else {
-            container.innerHTML = '';
-            pantry.forEach(item => {
-                const itemHTML = `
+            if (clearAllBtn) { clearAllBtn.style.display = 'none'; alert('your pantry is empty') };
+        }
+
+        pantry.forEach((item, index) => {
+            const itemHTML = `
                 <div class="item">
                     <div class="item_details">
                         <span class="item_name">${item.name}</span>
-                        <span class="item_category">${item.category || '---'}</span>
+                        <span class="item_category">${item.category}</span>
+                        <button class="clear_single_bt" onclick="deleteSingleItem(${index})">CLR</button>
                     </div>
                     <div class="item_status">
-                        <span class="item_qty"><span class="item_qty_nu">${item.amount || '---'}</span>pieces/kg/litres left</span>
-                        <span class="item_expiry safe"><span class="item_exp_nu">${item.expiry || '---'}</span> days left</span>
+                        <span class="item_qty">${item.amount}</span>
+                        <span class="item_expiry alert">
+                        <span class="item_exp_nu">${item.expiry || 'No'}</span> days left
+                        </span>
                     </div>
                 </div>
-            `; container.innerHTML += itemHTML;
-            });
+            `;
+
+            container.innerHTML += itemHTML;
+        });
+
+        window.deleteSingleItem = function (index) {
+            let pantry = JSON.parse(localStorage.getItem('macondoPantry')) || [];
+
+            pantry.splice(index, 1);
+
+            localStorage.setItem('macondoPantry', JSON.stringify(pantry));
+
+            window.location.reload();
+        };
+
+
+
+        if (clearAllBtn) {
+            clearAllBtn.onclick = function () {
+                if (confirm("Are you sure you want to clear your entire pantry")) {
+                    localStorage.removeItem('macondoPantry');
+                    window.location.reload();
+                }
+            };
         }
     </script>
+    <a href="add_stock.html">
+        <button class="re_add">Add New Item</button>
+    </a>
+
 </body>
 
 </html>
