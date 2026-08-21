@@ -143,14 +143,17 @@
     <div class="stats_banner">
         <a href="stock.html">
             <div class="stat_badge total">
-                <span class="stat_number">12</span>
+                <span class="stat_number" id="total_stock">12</span>
                 <span class="stat_label">In Stock</span>
             </div>
         </a>
-        <div class="stat_badge expiring">
-            <span class="stat_number">2</span>
-            <span class="stat_label">Expiring</span>
-        </div>
+        <a href="stock.html">
+            <div class="stat_badge expiring">
+                <span class="stat_number" id="expiring_number">0</span>
+                <span class="stat_label">Expiring</span>
+            </div>
+        </a>
+
         <div class="stat_badge shopping">
             <span class="stat_number">7</span>
             <span class="stat_label">To buy</span>
@@ -204,6 +207,25 @@
             <div class="extra">What do you have in stock</div>
         </div>
     </div>
+    <script>
+        const pantry = JSON.parse(localStorage.getItem('macondoPantry')) || [];
+
+        const totalItems = pantry.length;
+
+        let expiringCount = 0;
+
+        pantry.forEach(item => {
+            if (item.expiry) {
+                const days = parseInt(item.expiry.replace(/\D/g, ''), 10);
+                if (!isNaN(days) && days < 15) {
+                    expiringCount++;
+                }
+            }
+        });
+
+        document.getElementById('total_stock').textContent = totalItems;
+        document.getElementById('expiring_number').textContent = expiringCount;
+    </script>
 </body>
 
 </html>

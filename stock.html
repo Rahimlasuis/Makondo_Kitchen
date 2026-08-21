@@ -5,9 +5,10 @@
     <title>Pantry Stock</title>
     <style>
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f4f4f9;
-            padding: 8px 6px
+            font-family: Arial, Helvetica, sans-serif, Tahoma;
+            background-color: #e2dfd9;
+            margin: 0;
+            padding: 20px;
         }
 
         .back_bt_link {
@@ -21,20 +22,21 @@
             color: white;
             text-decoration: underline;
             border-radius: 10px;
+            cursor: pointer;
         }
 
         .item_container {
             max-width: 600px;
-            margin: 30px auto;
+            margin: 0 auto;
             padding: 0 10px;
         }
 
         .item {
             background-color: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 15px 20px;
-            margin-bottom: 12px;
+            border: 2px solid #b5b2aa;
+            border-radius: 24px;
+            padding: 20px 24px;
+            margin-bottom: 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -45,7 +47,7 @@
             display: flex;
             flex-direction: column;
             text-align: left;
-            gap: 4px;
+            gap: 6px;
         }
 
         .item_details button {
@@ -65,29 +67,30 @@
 
         .item_name {
             display: block;
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 22px;
+            font-weight: 500;
             color: #1e293b;
             text-transform: capitalize;
         }
 
         .item_category {
-            font-size: 12px;
+            font-size: 14px;
             color: #64748b;
+            font-weight: 500;
         }
 
         .item_status {
             display: flex;
             flex-direction: column;
-            text-align: right;
-            gap: 4px;
+            align-items: flex-end;
+            gap: 12px;
         }
 
         .item_qty {
             display: block;
-            font-size: 16px;
-            font-weight: 600;
-            color: #334155;
+            font-size: 24px;
+            font-weight: 800;
+            color: #0f172a;
             margin-bottom: 4px;
         }
 
@@ -130,6 +133,23 @@
             cursor: pointer;
             border-radius: 11px;
             height: 35px;
+            cursor: pointer;
+        }
+
+        .clear_bt:hover {
+            text-decoration: underline;
+        }
+
+        .clear_single_bt {
+            margin-top: 10px;
+            align-self: flex-start;
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 5px 12px;
+            font-weight: bold;
+            color: #94a3b8;
+            cursor: pointer;
         }
 
         .re_add {
@@ -154,16 +174,35 @@
         p {
             text-align: center;
         }
+
+        .search_container {
+            max-width: 600px;
+            margin: 0 auto 10px auto;
+            padding: 5px 10px;
+        }
+
+        #pantrySearch {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid lightgreen;
+            border-radius: 12px;
+            font-size: 15px;
+            box-sizing: border-box;
+            background-color: #ffffff;
+        }
     </style>
 </head>
 
 
 <body>
     <a class="back_bt_link" href="Kitchenpage.html">
-        <button class="back_bt">Back</button>
+        <button class="back_bt">Back To Dashboard</button>
     </a>
     <h1>My Pantry Stock</h1>
     <p>This is where all your ingredients and Kitchen Items will appear</p>
+    <div class="search_container">
+        <input type="text" id="pantrySearch" placeholder="Search for food items e.g Rice, Onions">
+    </div>
     <div class="clear_bt_div">
         <button id="clear_all" class="clear_bt">
             Clear Entire Pantry
@@ -275,6 +314,21 @@
         }
 
         pantry.forEach((item, index) => {
+
+            const daysLeft = parseInt(item.expiry) || 0;
+            let expiryClass = 'safe';
+            let badgeStyle = 'background-color: #dcfce7; color: #166534;';
+
+            if (!item.expiry || item.expiry.toLowerCase() === 'no expiry') {
+                expiryClass = 'none';
+                badgeStyle = 'background-color: #f1f5f9; color: #475569;';
+            } else if (daysLeft <= 7) {
+                expiryClass = 'expired';
+                badgeStyle = 'background-color: #fee2e2; color: #991b1b;';
+            } else if (daysLeft <= 30) {
+                expiryClass = 'alert';
+                badgeStyle = 'background-color: #ffedd5; color: #9a3412;';
+            }
             const itemHTML = `
                 <div class="item">
                     <div class="item_details">
@@ -284,8 +338,8 @@
                     </div>
                     <div class="item_status">
                         <span class="item_qty">${item.amount}</span>
-                        <span class="item_expiry alert">
-                        <span class="item_exp_nu">${item.expiry || 'No'}</span> days left
+                        <span class="item_expiry ${expiryClass}" style="${badgeStyle}">
+                            ${item.expiry ? item.expiry + ' days left' : 'No Expiry'}
                         </span>
                     </div>
                 </div>
@@ -314,6 +368,57 @@
                 }
             };
         }
+
+
+        const searchInput = document.getElementById('pantrySearch');
+
+        if (searchInput) {
+            searchInput.addEventListener('input', function (e) {
+                const searchText = e.target.value.toLowerCase();
+                const itemCards = document.querySelectorAll('.item');
+
+
+                itemCards.forEach((card, index) => {
+                    const itemNameElement = card.querySelector('.item_name');
+
+                    if (itemNameElement && itemNameElement.textContent) {
+                        const itemName = itemNameElement.textContent.toLowerCase();
+
+                        if (itemName.includes(searchText)) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        }
+
+        pantry.sort((a, b) => {
+            const daysA = parseInt(a.expiry ? a.expiry.replace(/\D/g, '') : 9999, 10);
+            const daysB = parseInt(b.expiry ? b.expiry.replace(/\D/g, '') : 9999, 10);
+            return daysA - daysB;
+        });
+
+        pantry.forEach((item, index) => {
+            const itemHTML = `
+      <div class="item">
+        <div class="item_details">
+          <span class="item_name">${item.name}</span>
+          <span class="item_category">${item.category || 'Uncategorized'}</span>
+          <span class="item_location">📍 ${item.location || 'Main Store'}</span>
+          <button onclick="deleteSingleItem(${index})" class="clr_single_btn" style="margin-top: 8px; align-self: flex-start;">CLR</button>
+        </div>
+        <div class="item_status">
+          <span class="item_qty">${item.amount}</span>
+          <span class="item_expiry alert">
+            ${item.expiry || 'No Expiry'}
+          </span>
+        </div>
+      </div>
+    `;
+            container.innerHTML += itemHTML;
+        });
     </script>
     <a href="add_stock.html">
         <button class="re_add">Add New Item</button>
