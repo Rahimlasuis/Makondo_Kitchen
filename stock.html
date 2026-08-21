@@ -393,32 +393,6 @@
                 });
             });
         }
-
-        pantry.sort((a, b) => {
-            const daysA = parseInt(a.expiry ? a.expiry.replace(/\D/g, '') : 9999, 10);
-            const daysB = parseInt(b.expiry ? b.expiry.replace(/\D/g, '') : 9999, 10);
-            return daysA - daysB;
-        });
-
-        pantry.forEach((item, index) => {
-            const itemHTML = `
-      <div class="item">
-        <div class="item_details">
-          <span class="item_name">${item.name}</span>
-          <span class="item_category">${item.category || 'Uncategorized'}</span>
-          <span class="item_location">📍 ${item.location || 'Main Store'}</span>
-          <button onclick="deleteSingleItem(${index})" class="clr_single_btn" style="margin-top: 8px; align-self: flex-start;">CLR</button>
-        </div>
-        <div class="item_status">
-          <span class="item_qty">${item.amount}</span>
-          <span class="item_expiry alert">
-            ${item.expiry || 'No Expiry'}
-          </span>
-        </div>
-      </div>
-    `;
-            container.innerHTML += itemHTML;
-        });
     </script>
     <a href="add_stock.html">
         <button class="re_add">Add New Item</button>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta=charset="UTF-8">
+    <meta name="viewport" content="width=device-width" , initial-scale="1.0">
+    <title>To Buy Shopping List</title>
+</head>
+
+<body>
+  <div class="container">
+    <div clas="header">
+      <a href="Kitchenpage.html" class="back_btn">Home</a>
+      <h1>Shopping List</h1>
+    </div>
+
+    <div class="add_box">
+      <input type="text" id="itemInput" placeholder="Add to list">
+      <button class="add_btn" onclick="addItem()">Add</button>
+    </div>
+
+    <div class="list_container">
+      <div id="shopping_list"></div>
+      <button onclick="clearAllItems()" id="clr_all_btn" class="clr_all_btn" style="display: none;">Clear Entire
+        List</button>
+    </div>
+  </div>
+
+  <script>
+    function renderList() {
+      const list = JSON.parse(localStorage.getItem('toBuy')) || [];
+      const container = document.getElementById('shopping_list');
+      const clearAllBtn = document.getElementById('clr_all_btn');
+
+      container.innerHTML = '';
+      if (list.length === 0) {
+        container.innerHTML = `
+          <p class="empty_msg>Your Shopping list is empty</p>"`
+        clearAllBtn.style.display = 'none';
+        return
+      }
+
+      clearAllBtn.style.display = 'block';
+      list.forEach((item, index) => {
+        container.innerHTML += `
+          <div class="item-row">
+            <span>${item}</span>
+            <button onclick="deleteItem(${index})" class="clr-btn">CLR</button>
+          </div>
+        `;
+      });
+    }
+
+    function addItem() {
+      const input = document.getElementById('itemInput');
+      const val = input.value.trim();
+
+      if (!val) {
+        return;
+      }
+      const list = JSON.parse(localStorage.getItem('toBuy')) || [];
+      list.push(val);
+      localStorage.setItem('toBuy', JSON.stringify(list));
+
+      input.value = '';
+      renderList();
+    }
+
+    function deleteItem(index) {
+      let list = JSON.parse(localStorage.getItem('toBuy')) || [];
+      list.splice(index, 1);
+      localStorage.setItem('toBuy', JSON.stringify(list));
+      renderList();
+    }
+
+    function clearAllItems() {
+      localStorage.removeItem('toBuy');
+      renderList();
+    }
+
+    renderList();
+  </script>
+</body>
+
+</html>
