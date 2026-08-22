@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Account</title>
+	<style>
+		body {
+			font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+			background: #5d62a0;
+			color: #333;
+			margin: 0;
+			padding: 20px;
+		}
+
+		#accountContainer {
+			max-width: 400px;
+			margin: 40px auto;
+			background: white;
+			padding: 24px;
+			border-radius: 16px;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		}
+
+		.header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 20px;
+		}
+
+		.back_btn {
+			color: white;
+			text-decoration: none;
+			font-weight: bold;
+			background: rgba(255, 255, 255, 0.2);
+			padding: 8px 14px;
+			border-radius: 7px;
+		}
+
+		h1 {
+			color: white;
+			margin: 0;
+		}
+
+		h2 {
+			margin-top: 0;
+		}
+
+		.data_group {
+			margin-bottom: 15px;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 5px;
+			font-weight: bold;
+			font-size: 14px;
+		}
+
+		input {
+			width: 100%;
+			padding: 10px;
+			border: 1px solid #ccc;
+			border-radius: 8px;
+			box-sizing: border-box;
+			font-size: 15px;
+		}
+
+		.submit_btn {
+			width: 100%;
+			background: #5d62a0;
+			color: white;
+			border: none;
+			padding: 12px;
+			border-radius: 8px;
+			font-size: 16px;
+			font-weight: bold;
+			cursor: pointer;
+			margin-bottom: 10px;
+		}
+
+		.toggle_text {
+			text-align: center;
+			margin-top: 15px;
+			font-size: 15px;
+		}
+
+		.toggle_link {
+			color: #5d62a0;
+			font-weight: bold;
+			cursor: pointer;
+			text-decoration: underline;
+		}
+
+		.user_profile {
+			text-align: center;
+		}
+
+		.logout_btn {
+			background: #991b1b;
+			color: white;
+			border: none;
+			padding: 10px 20px;
+			border-radius: 8px;
+			font-weight: bold;
+			cursor: pointer;
+			margin-top: 15px;
+		}
+	</style>
+</head>
+
+<body>
+	<div style="max-width: 480px; margin: 0 auto;">
+		<div class="header">
+			<a href="Kitchenpage.html" class="back_btn">Home</a>
+			<h1>Account</h1>
+		</div>
+	</div>
+	<div id="accountContainer">
+
+	</div>
+	<script>
+		let alreadySignedUp = false;
+
+		function renderAccountView() {
+			const container = document.getElementById('accountContainer');
+			const user = JSON.parse(localStorage.getItem('user'));
+
+			if (user) {
+				container.innerHTML = `
+          		<div class="user_profile">
+            		<h2>Welcome Back, ${user.username}</h2>
+            		<p><strong>Email:</strong> ${user.email}</p>
+            		<button onclick="logout()" class="logout_btn">Sign Out</button>
+          		</div>`;
+				return;
+			}
+
+			if (alreadySignedUp) {
+				container.innerHTML = `
+        		<h2>Create Account</h2>
+       			<div class="data_group">
+          			<label>Username</label>
+          			<input type="text" id="regUsername">
+        		</div>
+        		<div class="data_group">
+          			<label>Email</label>
+          			<input type="email" id="regEmail">
+        		</div>
+        		<div class="data_group">
+          			<label>Password</label>
+          			<input type="password" id="regPassword">
+        		</div>
+        		<button onclick="registerUser()" class="submit_btn">Sign Up</button>
+        		<p class="toggle_text">Already have an account <span onclick="toggleMode()" class="toggle_link">Sign In</span></p>
+    `
+			} else {
+				container.innerHTML = `
+        		<h2>Sign In</h2>
+        		<div class="data_group">
+          			<label>Email</label>
+          			<input type="email" id="loginEmail">
+        		</div>
+        		<div class="data_group">
+          			<label>Password</label>
+          			<input type="password" id="loginPassword">
+        		</div>
+        		<button onclick="loginUser()" class="submit_btn">Sign In</button>
+        		<p class="toggle_text">Don't have an account <span onclick="toggleMode()" class="toggle_link">Sign Up</span></p>
+        `;
+			}
+		}
+
+		function toggleMode() {
+			alreadySignedUp = !alreadySignedUp;
+			renderAccountView();
+		}
+
+		function registerUser() {
+			const username = document.getElementById('regUsername').value.trim();
+			const email = document.getElementById('regEmail').value.trim().toLowerCase();
+			const password = document.getElementById('regPassword').value;
+			const users = JSON.parse(localStorage.getItem('mcUsers')) || [];
+
+			if (!username || !email || !password) {
+				alert("Please fill in all fields");
+				return;
+			}
+
+			const userExists = users.some(u => u.email === email);
+			if (userExists) {
+				alert("An accound exist with this email")
+				return;
+			}
+
+			const newUser = { username, email, password };
+			users.push(newUser);
+
+			localStorage.setItem('mcUsers', JSON.stringify(users));
+			localStorage.setItem('user', JSON.stringify(newUser));
+
+			renderAccountView();
+		}
+
+		function loginUser() {
+			const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+			const password = document.getElementById('loginPassword').value;
+			const users = JSON.parse(localStorage.getItem('mcUsers')) || [];
+
+			const foundUser = users.find(u => u.email === email && u.password === password);
+			if (!foundUser) {
+				alert("Invalid username or password");
+				return;
+			}
+
+			localStorage.setItem('user', JSON.stringify(foundUser));
+			renderAccountView();
+		}
+
+		function logout() {
+			localStorage.removeItem('user');
+			renderAccountView();
+		}
+		renderAccountView();
+	</script>
+</body>
+
+</html>
