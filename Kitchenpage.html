@@ -153,11 +153,13 @@
                 <span class="stat_label">Expiring</span>
             </div>
         </a>
+        <a href="tobuy.html">
+            <div class="stat_badge shopping">
+                <span class="stat_number" id="list_nu">7</span>
+                <span class="stat_label">To buy</span>
+            </div>
+        </a>
 
-        <div class="stat_badge shopping">
-            <span class="stat_number">7</span>
-            <span class="stat_label">To buy</span>
-        </div>
         <div class="stat_badge account">
             <span class="stat_number">Account</span>
             <span class="stat_label">Sign in/ Sign up</span>
@@ -225,6 +227,10 @@
 
         document.getElementById('total_stock').textContent = totalItems;
         document.getElementById('expiring_number').textContent = expiringCount;
+
+
+        const List = JSON.parse(localStorage.getItem('toBuy')) || [];
+        document.getElementById('list_nu').textContent = List.length;
     </script>
 </body>
 
