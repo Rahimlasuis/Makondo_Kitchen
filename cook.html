@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width" , initial-scale="1.0">
+  <title>Make a Dish</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <a href="Kitchenpage.html" class="back_btn">Home</a>
+      <h1>Make a Dish</h1>
+    </div>
+    <div id="dish_content">
+      Loadinng..........................
+    </div>
+  </div>
+
+  <script>
+    const dishes = [
+      {
+        id: 1,
+        title: "Jollof Rice",
+        description: "Rich, delicious Nigerian Party Jollof",
+        ingredients: ["Raw Rice", "Tomato Paste", "Chopped Onion", "Vegetable oil", "seasoning Cube", "Salt", "Bay Leave"],
+        steps: [
+          "Blend tomatoes, peppers, and onions into a smooth mixture.",
+          "Fry tomato paste and the blended mixture in hot oil until oil floats to the top.",
+          "Add stock, seasoning, and water; bring to a boil.",
+          "Add Bay leaves",
+          "Stir in washed rice, cover tightly, and cook on low heat until tender."
+        ]
+      },
+      {
+        id: 2,
+        title: "Fried Plantains & Scrambled Eggs",
+        description: "Quick sweet brownish plantains served with eggs.",
+        ingredients: ["Ripe Plantains", "Large Eggs", "Vegetable Oil", "Salt & Pepper", "Diced Tomatoes & Onions"],
+        steps: [
+          "Peel and slice plantains into any shape of your peference.",
+          "Fry plantain slices in hot oil until golden brown on both sides, then drain.",
+          "Whisk eggs with salt, pepper, diced tomatoes, and onions.",
+          "Scramble the eggs in a oiled pan and serve hot alongside the plantains."
+        ]
+      }
+    ];
+
+    function showDishList() {
+      const container = document.getElementById('dish_content');
+      container.innerHTML = '';
+      dishes.forEach((dish, index) => {
+        container.innerHTML += `<div class="recipe-card" onclick="showDishDetails(${index})">
+            <h3>${dish.title}</h3>
+            <p>${dish.description}</p>
+          </div>`
+      });
+    }
+
+    function showDishDetails(index) {
+      const dish = dishes[index];
+      const container = document.getElementById('dish_content');
+
+      const ingredientsHTML = dish.ingredients.map(ing => `<li>${ing}</li>`).join('');
+      const stepsHTML = dish.steps.map((step, i) => `
+      <div class="step-box">
+          <strong>Step ${i + 1}:</strong> ${step}
+        </div>
+      `).join('');
+
+      container.innerHTML = `
+        <div class="recipe_card" style="cursor: default;">
+          <button onclick="showDishList()" class="nav_btn">← Back to Dishes</button>
+          <h2 style="margin: 0 0 8px 0;">${dish.title}</h2>
+          <p style="color:#666;">${dish.description}</p>
+
+          <h3 style="margin-top: 20px; color: #5d62a0;">Ingredients Needed:</h3>
+          <ul class="ingredient_list">
+            ${ingredientsHTML}
+          </ul>
+
+          <h3 style="color: #5d62a0;">Preparation Steps:</h3>
+          ${stepsHTML}
+
+          <button onclick="showDishList()" class="done_btn">Finished Cooking!</button>
+        </div>
+      `;
+    }
+
+    showDishList();
+  </script>
+</body>
+
+</html>

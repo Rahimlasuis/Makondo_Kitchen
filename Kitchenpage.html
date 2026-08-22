@@ -159,11 +159,13 @@
                 <span class="stat_label">To buy</span>
             </div>
         </a>
+        <a href="account.html">
+            <div class="stat_badge account">
+                <span class="stat_number" id="title">Account</span>
+                <span class="stat_label" id="subtitle">Sign in/ Sign up</span>
+            </div>
+        </a>
 
-        <div class="stat_badge account">
-            <span class="stat_number">Account</span>
-            <span class="stat_label">Sign in/ Sign up</span>
-        </div>
     </div>
     <div class="all">
         <div class="cook box">
@@ -231,6 +233,16 @@
 
         const List = JSON.parse(localStorage.getItem('toBuy')) || [];
         document.getElementById('list_nu').textContent = List.length;
+
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        if (user) {
+            document.getElementById('title').textContent = user.username;
+            document.getElementById('subtitle').textContent = "Logged in";
+        } else {
+            document.getElementById('title').textContent = "Account";
+            document.getElementById('subtitle').textContent = "Sign in/ Sign up";
+        }
     </script>
 </body>
 
