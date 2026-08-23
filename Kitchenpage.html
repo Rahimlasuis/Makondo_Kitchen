@@ -168,25 +168,34 @@
 
     </div>
     <div class="all">
-        <div class="cook box">
-            Make a Dish
-            <div class="extra">What do you have in mind</div>
-        </div>
+        <a href="cook.html">
+            <div class="cook box">
+                Make a Dish
+                <div class="extra">What do you have in mind</div>
+            </div>
+        </a>
+
+        <a href="bake.html">
+            <div class="bake box">
+                Bake sth
+                <div class="extra">Try something special</div>
+            </div>
+        </a>
         <div class="bake box">
             Bake sth
             <div class="extra">Try something special</div>
         </div>
-        <div class="add box">
+        <!--<div class="add box">
             Add Recipe
             <div class="extra">Share your Recipe</div>
-        </div>
+        </div>-->
         <a class="link stock" href="add_stock.html">
             <div class="stock box">
                 Stock
                 <div class="extra">Restock your Kitchen</div>
             </div>
         </a>
-        <div class="find box">
+        <!--<div class="find box">
             Find Ingredients
             <div class="extra">Find missing Ingredients</div>
         </div>
@@ -209,7 +218,7 @@
         <div class="suggestion box">
             Chef's Suggestion
             <div class="extra">What do you have in stock</div>
-        </div>
+        </div>-->
     </div>
     <script>
         const pantry = JSON.parse(localStorage.getItem('macondoPantry')) || [];
