@@ -113,7 +113,7 @@
         .stat_label {
             font-size: 11px;
             color: #64748b;
-            text-transdata: uppercase;
+            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
@@ -137,7 +137,7 @@
 </head>
 
 <body>
-    <bitton class="hlp_bt">Help</bitton>
+    <a href="help.html"><button class="hlp_bt">Help</button></a>
     <h1>Makondo Kitchen Manager</h1>
     </div>
     <div class="stats_banner">
@@ -181,40 +181,31 @@
                 <div class="extra">Try something special</div>
             </div>
         </a>
-        <div class="add box">
-            Add Recipe
-            <div class="extra">Share your Recipe</div>
-        </div>
+        <a href="add_recipe.html">
+            <div class="add box">
+                Add Recipe
+                <div class="extra">Share your Recipe</div>
+            </div>
+        </a>
         <a class="link stock" href="add_stock.html">
             <div class="stock box">
                 Stock
                 <div class="extra">Restock your Kitchen</div>
             </div>
         </a>
-        <div class="find box">
-            Find Ingredients
-            <div class="extra">Find missing Ingredients</div>
-        </div>
-        <div class="explore box">
-            Explore Recipes
-            <div class="extra">Explore our special recipes</div>
-        </div>
-        <div class="help box">
-            Help
-            <div class="extra">What do you need</div>
-        </div>
-        <div class="msg box">
-            Notificaion
-            <div class="extra">Updates, messages and infos</div>
-        </div>
-        <div class="history box">
-            History
-            <div class="extra">Monitor your diet</div>
-        </div>
-        <div class="suggestion box">
-            Chef's Suggestion
-            <div class="extra">What do you have in stock</div>
-        </div>
+        <a href="cook.html">
+            <div class="explore box">
+                Explore Recipes
+                <div class="extra">Explore our special recipes</div>
+            </div>
+        </a>
+        <a href="help.html">
+            <div class="help box">
+                Help
+                <div class="extra">What do you need</div>
+            </div>
+        </a>
+
     </div>
     <script>
         const pantry = JSON.parse(localStorage.getItem('macondoPantry')) || [];
