@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Kitchen</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #6161a7;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .hlp_bt {
+            position: fixed;
+            top: 6px;
+            right: 4px;
+            background-color: white;
+            font-size: 13px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: blue;
+            border: 3px solid lightgrey;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .hlp_bt:hover {
+            background-color: rgb(152, 211, 211);
+            font-size: 15px;
+            padding: 12px 23px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+
+        }
+
+        .all {
+            display: grid;
+            grid-template-columns: repeat(3 1fr);
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .box {
+            background-color: rgb(193, 226, 236);
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 30px 20px;
+            text-align: center;
+            font-weight: bold;
+            color: #444;
+            font-size: 18px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+        }
+
+        .box:hover {
+            border-color: #a0a0a0;
+            background-color: #fafafa;
+        }
+
+
+
+        .info {
+            height: fit-content;
+            width: 27px;
+            background-color: red;
+            position: absolute;
+            top: -7px;
+            right: -7px;
+            border-radius: 50%;
+
+        }
+
+        .stat_banner {
+            display: flex;
+            justify-content: space-between;
+            margin: 0 auto 30px auto;
+            gap: 20px;
+            text-align: center;
+        }
+
+        .stat_badge {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 10px 15px;
+            text-align: center;
+            flex: 1;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+            display: inline-block;
+            width: 40%;
+            cursor: pointer;
+        }
+
+        .stat_badge:hover {
+            background-color: rgb(214, 209, 209);
+        }
+
+        .stat_number {
+            display: block;
+            font-size: 20px;
+            font-weight: bold;
+            color: #1e293b;
+        }
+
+        .stat_label {
+            font-size: 11px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .link {
+            text-decoration: none;
+        }
+
+        @media (max-width: 850px) {
+            .all {
+                max-width: 300px;
+            }
+        }
+
+
+        @media (min-width: 1200px) {
+            .all {
+                max-width: 900px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="help.html"><button class="hlp_bt">Help</button></a>
+    <h1>Makondo Kitchen Manager</h1>
+    </div>
+    <div class="stats_banner">
+        <a href="stock.html">
+            <div class="stat_badge total">
+                <span class="stat_number" id="total_stock">12</span>
+                <span class="stat_label">In Stock</span>
+            </div>
+        </a>
+        <a href="stock.html">
+            <div class="stat_badge expiring">
+                <span class="stat_number" id="expiring_number">0</span>
+                <span class="stat_label">Expiring</span>
+            </div>
+        </a>
+        <a href="tobuy.html">
+            <div class="stat_badge shopping">
+                <span class="stat_number" id="list_nu">7</span>
+                <span class="stat_label">To buy</span>
+            </div>
+        </a>
+        <a href="account.html">
+            <div class="stat_badge account">
+                <span class="stat_number" id="title">Account</span>
+                <span class="stat_label" id="subtitle">Sign in/ Sign up</span>
+            </div>
+        </a>
+
+    </div>
+    <div class="all">
+        <a href="cook.html">
+            <div class="cook box">
+                Make a Dish
+                <div class="extra">What do you have in mind</div>
+            </div>
+        </a>
+
+        <a href="bake.html">
+            <div class="bake box">
+                Bake sth
+                <div class="extra">Try something special</div>
+            </div>
+        </a>
+        <a href="add_recipe.html">
+            <div class="add box">
+                Add Recipe
+                <div class="extra">Share your Recipe</div>
+            </div>
+        </a>
+        <a class="link stock" href="add_stock.html">
+            <div class="stock box">
+                Stock
+                <div class="extra">Restock your Kitchen</div>
+            </div>
+        </a>
+        <a href="cook.html">
+            <div class="explore box">
+                Explore Recipes
+                <div class="extra">Explore our special recipes</div>
+            </div>
+        </a>
+        <a href="help.html">
+            <div class="help box">
+                Help
+                <div class="extra">What do you need</div>
+            </div>
+        </a>
+
+    </div>
+    <script>
+        const pantry = JSON.parse(localStorage.getItem('macondoPantry')) || [];
+
+        const totalItems = pantry.length;
+
+        let expiringCount = 0;
+
+        pantry.forEach(item => {
+            if (item.expiry) {
+                const days = parseInt(item.expiry.replace(/\D/g, ''), 10);
+                if (!isNaN(days) && days < 15) {
+                    expiringCount++;
+                }
+            }
+        });
+
+        document.getElementById('total_stock').textContent = totalItems;
+        document.getElementById('expiring_number').textContent = expiringCount;
+
+
+        const List = JSON.parse(localStorage.getItem('toBuy')) || [];
+        document.getElementById('list_nu').textContent = List.length;
+
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        if (user) {
+            document.getElementById('title').textContent = user.username;
+            document.getElementById('subtitle').textContent = "Logged in";
+        } else {
+            document.getElementById('title').textContent = "Account";
+            document.getElementById('subtitle').textContent = "Sign in/ Sign up";
+        }
+    </script>
+</body>
+
+</html>

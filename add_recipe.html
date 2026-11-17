@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Share Your special recipe</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #5d62a0;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .back_btn {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 8px 14px;
+      border-radius: 8px;
+    }
+
+    h1 {
+      color: white;
+      margin: 0;
+    }
+
+    .form_card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .form_group {
+      margin-bottom: 15px;
+    }
+
+    .form_group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+
+    .form_group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-family: inherit;
+      font-size: 15px;
+    }
+
+    .form_group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-family: inherit;
+      font-size: 15px;
+    }
+
+    .form_group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-family: inherit;
+      font-size: 15px;
+    }
+
+    .dynamic_input_row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .dynamic_input_row input {
+      flex: 1;
+    }
+
+    .sm_btn {
+      background: #5d62a0;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .sm_btn:hover {
+      background: #166134;
+    }
+
+    .save_btn {
+      width: 100%;
+      background: #166134;
+      color: white;
+      border: none;
+      padding-block-end: 14px;
+      padding-block-start: 14px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .save_btn:hover {
+      background-color: #5d62a0;
+      box-shadow: 5px 5px rgba(0, 0, 0, 0.2);
+      transition: all 0.15s ease;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <a href="Kitchenpage.html" class="back_btn">Home</a>
+      <h1>Add Recipe</h1>
+    </div>
+    <div class="form_card">
+      <div class="form_group">
+        <label>Category</label>
+        <select id="recipeCategory">
+          <option value="dish">Cooking</option>
+          <option balue="bake">Baking</option>
+        </select>
+      </div>
+      <div class="form_group">
+        <label>Recipe Title</label>
+        <input type="text" id="recipeTitle" placeholder="e.g. Fried Rice">
+      </div>
+      <div class="form_group">
+        <label>Short Description</label>
+        <input type="text" id="recipeDesc" placehoolder="e.g. Delicious sweet potatoe Chips">
+      </div>
+      <div class="form_group">
+        <label>Ingredients</label>
+        <div id="IngredientsGroup">
+          <div class="dynamic_input_row">
+            <input type="text" class="ingredient_input" placeholder="Ingredient 1">
+          </div>
+        </div>
+        <button type="button" onclick="addIngredientField()" class="sm_btn">Add Ingredient</button>
+      </div>
+      <div class="form_group">
+        <label>Preparation Steps</label>
+        <div id="stepsGroup">
+          <div class="dynamic_input_row">
+            <input type="text" class="step_input" placeholder="step 1">
+          </div>
+        </div>
+        <button type="button" onclick="addStepField()" class="sm_btn">Add Step</button>
+      </div>
+
+      <button onclick="saveRecipe()" class="save_btn">Save and Share Recipe</button>
+    </div>
+  </div>
+
+
+  <script>
+    function addIngredientField() {
+      const group = document.getElementById('IngredientsGroup');
+      const count = group.querySelectorAll('.ingredient_input').length + 1;
+      const div = document.createElement('div');
+      div.className = 'dynamic_input_row';
+      div.innerHTML = `<input type="text" class="ingredient_input" placeholder="Ingredient ${count}">`;
+      group.appendChild(div);
+    }
+
+    function addStepField() {
+      const group = document.getElementById('stepsGroup');
+      const count = group.querySelectorAll('.step_input').length + 1;
+      const div = document.createElement('div');
+      div.className = 'dynamic_input_row';
+      div.innerHTML = `<input type="text" class="step_input" placeholder="Step ${count}">`;
+      group.appendChild(div);
+    }
+
+    function saveRecipe() {
+      const category = document.getElementById('recipeCategory').value;
+      const title = document.getElementById('recipeTitle').value.trim();
+      const desc = document.getElementById('recipeDesc').value.trim();
+
+      const ingredientInputs = document.querySelectorAll('.ingredient_input');
+      const ingredients = Array.from(ingredientInputs).map(i => i.value.trim()).filter(v => v !== '');
+
+      const stepInputs = document.querySelectorAll('.step_input');
+      const steps = Array.from(stepInputs).map(s => s.value.trim()).filter(v => v !== '');
+
+      if (!title || ingredients.length === 0 || steps.length === 0) {
+        alert("Please fill in the title, at least one ingredient and step");
+        return;
+      }
+
+      const storage = category === 'bake' ? 'bakeRecipes' : 'dishRecipes';
+      const existingRecipes = JSON.parse(localStorage.getItem(storage)) || [];
+
+      const newRecipe = {
+        id: Date.now(),
+        title,
+        desc,
+        ingredients,
+        steps
+      };
+
+      existingRecipes.push(newRecipe);
+      localStorage.setItem(storage, JSON.stringify(existingRecipes));
+
+      alert("Recipe saved Successfully");
+      window.location.href = category === 'bake' ? 'bake.html' : 'cook.html';
+    }
+  </script>
+</body>
+
+</html>
